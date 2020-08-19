@@ -8,10 +8,21 @@
 
 import UIKit
 
+// To support ASImageNode from ASyncDisplayKit
+public protocol ISSImageViewType: UICoordinateSpace {
+    var image: UIImage? { get set}
+    var frame: CGRect { get set }
+    var bounds: CGRect { get set }
+    var alpha: CGFloat { get set }
+    var contentMode: UIViewContentMode { get set }    
+}
+
+extension UIImageView: ISSImageViewType {}
+
 @objcMembers
 open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransitioningDelegate {
     /// parent image view used for animated transition
-    open var referenceImageView: UIImageView?
+    open var referenceImageView: ISSImageViewType?
     /// parent slideshow view used for animated transition
     open weak var referenceSlideshowView: ImageSlideshow?
 
@@ -162,7 +173,7 @@ extension ZoomAnimatedTransitioningDelegate: UIGestureRecognizerDelegate {
 @objcMembers
 class ZoomAnimator: NSObject {
 
-    var referenceImageView: UIImageView?
+    var referenceImageView: ISSImageViewType?
     var referenceSlideshowView: ImageSlideshow?
     var parent: ZoomAnimatedTransitioningDelegate
 
@@ -173,7 +184,7 @@ class ZoomAnimator: NSObject {
         super.init()
     }
 
-    init(referenceImageView: UIImageView, parent: ZoomAnimatedTransitioningDelegate) {
+    init(referenceImageView: ISSImageViewType, parent: ZoomAnimatedTransitioningDelegate) {
         self.referenceImageView = referenceImageView
         self.parent = parent
         super.init()
