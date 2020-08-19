@@ -14,7 +14,7 @@ public protocol ISSImageViewType: UICoordinateSpace {
     var frame: CGRect { get set }
     var bounds: CGRect { get set }
     var alpha: CGFloat { get set }
-    var contentMode: UIViewContentMode { get set }    
+    var contentMode: UIViewContentMode { get set }
 }
 
 extension UIImageView: ISSImageViewType {}
@@ -55,7 +55,7 @@ open class ZoomAnimatedTransitioningDelegate: NSObject, UIViewControllerTransiti
         - parameter imageView: UIImageView instance to animate the transition from
         - parameter slideshowController: FullScreenViewController instance to animate the transition to
      */
-    public init(imageView: UIImageView, slideshowController: FullScreenSlideshowViewController) {
+    public init(imageView: ISSImageViewType, slideshowController: FullScreenSlideshowViewController) {
         self.referenceImageView = imageView
         self.referenceSlideshowController = slideshowController
 
